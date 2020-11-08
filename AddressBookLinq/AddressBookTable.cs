@@ -70,5 +70,16 @@ namespace AddressBookLinq
             DataRow contact = table.Select("FirstName = '"+ firstName+"' and LastName = '"+lastName+"'").FirstOrDefault();
             contact[column] = newValue;
         }
+
+        /// <summary>
+        /// UC 5 Deletes the contact.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        public void DeleteContact(string firstName,string lastName)
+        {
+            DataRow contact = table.Select("FirstName = '" + firstName + "' and LastName = '" + lastName + "'").FirstOrDefault();
+            table.Rows.Remove(contact);
+        }
     }
 }
