@@ -32,6 +32,10 @@ namespace AddressBookLinq
             //UC 7 Retrieves the state or city.
             Console.WriteLine("\nCount by the state or city");
             addressBookTable.CountByCityOrState("Kottayam", "Kerala");
+
+            // UC 8 Gets all by city.
+            Console.WriteLine("\nAll Contacts alphabetically by the city");
+            addressBookTable.GetAllByCity("Kottayam");
         }
     }
 }

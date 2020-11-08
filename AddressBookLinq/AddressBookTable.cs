@@ -38,8 +38,15 @@ namespace AddressBookLinq
             table.Rows.Add("Kretika", "Arora", "Andheri", "Mumbai", "Maharashtra", "125445", "7575757575", "kretika.arora");
             table.Rows.Add("Praveen", "Kumar", "rohini", "Delhi", "Delhi", "435121", "7897897898", "praveen.kumar");
             table.Rows.Add("Apoorva", "Singh", "Andheri", "Mumbai", "Maharashtra", "125445", "8598598599", "apporva.singh");
+            table.Rows.Add("Mukesh", "A", "Pala", "Kottayam", "Kerala", "686574", "7896541233", "Mukesh.A");
+            table.Rows.Add("Aseem", "Anand", "Pala", "Kottayam", "Kerala", "686574", "7896541233", "Aseem.Anand");
+
         }
 
+        /// <summary>
+        /// Gets all contacts.
+        /// </summary>
+        /// <param name="dt">The dt.</param>
         public void GetAllContacts(DataRow[] dt = null)
         {
             Console.WriteLine("\n\n");
@@ -142,6 +149,21 @@ namespace AddressBookLinq
                           select c;
 
             Console.WriteLine("Count of contacts in {0}, {1} is {2}", city,state,contact.Count());
+        }
+
+        /// <summary>
+        /// UC 8 Gets all by city.
+        /// </summary>
+        /// <param name="city">The city.</param>
+        public void GetAllByCity(string city)
+        {
+            var contact = from c in table.AsEnumerable()
+                          where c.Field<string>("City") == city
+                          orderby c.Field<string>("FirstName") , c.Field<string>("LastName")
+                          select c;
+
+            if (contact.Count() != 0)
+                GetAllContacts(contact.ToArray());
         }
     }
 }
