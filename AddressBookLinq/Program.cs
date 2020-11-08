@@ -28,6 +28,10 @@ namespace AddressBookLinq
             //UC 6 Retrieves the state or city.
             Console.WriteLine("\nRetrieves the state or city");
             addressBookTable.RetrieveByCityOrState("Delhi", "Delhi");
+
+            //UC 7 Retrieves the state or city.
+            Console.WriteLine("\nCount by the state or city");
+            addressBookTable.CountByCityOrState("Kottayam", "Kerala");
         }
     }
 }
