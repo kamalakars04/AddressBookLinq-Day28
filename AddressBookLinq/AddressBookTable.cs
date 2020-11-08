@@ -40,22 +40,39 @@ namespace AddressBookLinq
             table.Rows.Add("Apoorva", "Singh", "Andheri", "Mumbai", "Maharashtra", "125445", "8598598599", "apporva.singh");
         }
 
-        public void GetAllContacts()
+        public void GetAllContacts(DataRow[] dt = null)
         {
             Console.WriteLine("\n\n");
-            foreach(DataRow dr in table.AsEnumerable())
+            if(dt == null)
             {
-                Console.WriteLine("\n\n");
-                Console.WriteLine("FirstName:- " + dr.Field<string>("firstName"));
-                Console.WriteLine("lastName:- " + dr.Field<string>("lastName"));
-                Console.WriteLine("Address:- " + dr.Field<string>("address"));
-                Console.WriteLine("City:- " + dr.Field<string>("city"));
-                Console.WriteLine("State:- " + dr.Field<string>("state"));
-                Console.WriteLine("zip:- " + dr.Field<string>("zip"));
-                Console.WriteLine("phoneNumber:- " + dr.Field<string>("phoneNumber"));
-                Console.WriteLine("eMail:- " + dr.Field<string>("eMail"));
+                foreach (DataRow dr in table.AsEnumerable())
+                {
+                    Console.WriteLine("\n\n");
+                    Console.WriteLine("FirstName:- " + dr.Field<string>("firstName"));
+                    Console.WriteLine("lastName:- " + dr.Field<string>("lastName"));
+                    Console.WriteLine("Address:- " + dr.Field<string>("address"));
+                    Console.WriteLine("City:- " + dr.Field<string>("city"));
+                    Console.WriteLine("State:- " + dr.Field<string>("state"));
+                    Console.WriteLine("zip:- " + dr.Field<string>("zip"));
+                    Console.WriteLine("phoneNumber:- " + dr.Field<string>("phoneNumber"));
+                    Console.WriteLine("Email:- " + dr.Field<string>("Email"));
+                }
             }
-            
+            else
+            {
+                foreach (DataRow dr in dt)
+                {
+                    Console.WriteLine("\n\n");
+                    Console.WriteLine("FirstName:- " + dr.Field<string>("firstName"));
+                    Console.WriteLine("lastName:- " + dr.Field<string>("lastName"));
+                    Console.WriteLine("Address:- " + dr.Field<string>("address"));
+                    Console.WriteLine("City:- " + dr.Field<string>("city"));
+                    Console.WriteLine("State:- " + dr.Field<string>("state"));
+                    Console.WriteLine("zip:- " + dr.Field<string>("zip"));
+                    Console.WriteLine("phoneNumber:- " + dr.Field<string>("phoneNumber"));
+                    Console.WriteLine("eMail:- " + dr.Field<string>("eMail"));
+                }
+            }
         }
 
         /// <summary>
@@ -67,8 +84,16 @@ namespace AddressBookLinq
         /// <param name="newValue">The new value.</param>
         public void EditExistingContact(string firstName, string lastName, string column, string newValue)
         {
-            DataRow contact = table.Select("FirstName = '"+ firstName+"' and LastName = '"+lastName+"'").FirstOrDefault();
-            contact[column] = newValue;
+            try
+            {
+                DataRow contact = table.Select("FirstName = '" + firstName + "' and LastName = '" + lastName + "'").FirstOrDefault();
+                contact[column] = newValue;
+            }
+            catch
+            {
+
+            }
+           
         }
 
         /// <summary>
@@ -78,8 +103,31 @@ namespace AddressBookLinq
         /// <param name="lastName">The last name.</param>
         public void DeleteContact(string firstName,string lastName)
         {
-            DataRow contact = table.Select("FirstName = '" + firstName + "' and LastName = '" + lastName + "'").FirstOrDefault();
-            table.Rows.Remove(contact);
+            try
+            {
+                DataRow contact = table.Select("FirstName = '" + firstName + "' and LastName = '" + lastName + "'").FirstOrDefault();
+                table.Rows.Remove(contact);
+            }
+            catch
+            {
+
+            }
+            
+        }
+
+        /// <summary>
+        /// UC 6 Retrieves the state or city.
+        /// </summary>
+        /// <param name="city">The city.</param>
+        /// <param name="state">The state.</param>
+        public void RetrieveByCityOrState(string city, string state)
+        {
+            var contact = from c in table.AsEnumerable()
+                          where c.Field<string>("City") == city && c.Field<string>("State") == state
+                          select c;
+
+            if(contact.Count() != 0)
+                GetAllContacts(contact.ToArray());
         }
     }
 }
