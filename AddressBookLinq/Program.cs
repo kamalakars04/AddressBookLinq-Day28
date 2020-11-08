@@ -21,9 +21,13 @@ namespace AddressBookLinq
             addressBookTable.GetAllContacts();
 
             // UC 5 Delete Existing Contact
-            Console.WriteLine("After Deleting Contact");
+            Console.WriteLine("\nAfter Deleting Contact");
             addressBookTable.DeleteContact("Apoorva", "Singh");
             addressBookTable.GetAllContacts();
+
+            //UC 6 Retrieves the state or city.
+            Console.WriteLine("\nRetrieves the state or city");
+            addressBookTable.RetrieveByCityOrState("Delhi", "Delhi");
         }
     }
 }
