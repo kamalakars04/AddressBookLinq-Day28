@@ -9,6 +9,7 @@ namespace AddressBookLinq
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using System.Text;
 
     public class AddressBookTable
@@ -37,6 +38,37 @@ namespace AddressBookLinq
             table.Rows.Add("Kretika", "Arora", "Andheri", "Mumbai", "Maharashtra", "125445", "7575757575", "kretika.arora");
             table.Rows.Add("Praveen", "Kumar", "rohini", "Delhi", "Delhi", "435121", "7897897898", "praveen.kumar");
             table.Rows.Add("Apoorva", "Singh", "Andheri", "Mumbai", "Maharashtra", "125445", "8598598599", "apporva.singh");
+        }
+
+        public void GetAllContacts()
+        {
+            Console.WriteLine("\n\n");
+            foreach(DataRow dr in table.AsEnumerable())
+            {
+                Console.WriteLine("\n\n");
+                Console.WriteLine("FirstName:- " + dr.Field<string>("firstName"));
+                Console.WriteLine("lastName:- " + dr.Field<string>("lastName"));
+                Console.WriteLine("Address:- " + dr.Field<string>("address"));
+                Console.WriteLine("City:- " + dr.Field<string>("city"));
+                Console.WriteLine("State:- " + dr.Field<string>("state"));
+                Console.WriteLine("zip:- " + dr.Field<string>("zip"));
+                Console.WriteLine("phoneNumber:- " + dr.Field<string>("phoneNumber"));
+                Console.WriteLine("eMail:- " + dr.Field<string>("eMail"));
+            }
+            
+        }
+
+        /// <summary>
+        /// UC 4 Edits the existing contact.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <param name="column">The column.</param>
+        /// <param name="newValue">The new value.</param>
+        public void EditExistingContact(string firstName, string lastName, string column, string newValue)
+        {
+            DataRow contact = table.Select("FirstName = '"+ firstName+"' and LastName = '"+lastName+"'").FirstOrDefault();
+            contact[column] = newValue;
         }
     }
 }
