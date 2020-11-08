@@ -14,6 +14,10 @@ namespace AddressBookLinq
         {
             // UC 1 Create a new table
             AddressBookTable addressBookTable = new AddressBookTable();
+
+            // UC 4 Edit Existing Contact
+            addressBookTable.EditExistingContact("Kamalakar", "Rao", "PhoneNumber", "8919810751");
+            addressBookTable.GetAllContacts();
         }
     }
 }
