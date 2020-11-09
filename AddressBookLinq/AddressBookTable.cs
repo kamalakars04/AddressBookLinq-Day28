@@ -63,6 +63,14 @@ namespace AddressBookLinq
                     Console.WriteLine("zip:- " + dr.Field<string>("zip"));
                     Console.WriteLine("phoneNumber:- " + dr.Field<string>("phoneNumber"));
                     Console.WriteLine("Email:- " + dr.Field<string>("Email"));
+                    try
+                    {
+                        Console.WriteLine("AddressBookName:- " + dr.Field<string>("addressBookName"));
+                        Console.WriteLine("Type:- " + dr.Field<string>("type"));
+                    }
+                    catch
+                    {
+                    }
                 }
             }
             else
@@ -78,6 +86,15 @@ namespace AddressBookLinq
                     Console.WriteLine("zip:- " + dr.Field<string>("zip"));
                     Console.WriteLine("phoneNumber:- " + dr.Field<string>("phoneNumber"));
                     Console.WriteLine("eMail:- " + dr.Field<string>("eMail"));
+                    try
+                    {
+                        Console.WriteLine("AddressBookName:- " + dr.Field<string>("addressBookName"));
+                        Console.WriteLine("Type:- " + dr.Field<string>("type"));
+                    }
+                    catch
+                    {
+                        Console.WriteLine("");
+                    }
                 }
             }
         }
@@ -164,6 +181,27 @@ namespace AddressBookLinq
 
             if (contact.Count() != 0)
                 GetAllContacts(contact.ToArray());
+        }
+
+        /// <summary>
+        /// UC 9 Add address book name and type
+        /// </summary>
+        public void AddAddressBookNameType()
+        {
+            DataColumn column;
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "addressBookName";
+            column.AllowDBNull = false;
+            column.DefaultValue = "Home";
+            table.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "type";
+            column.AllowDBNull = false;
+            column.DefaultValue = "Friend";
+            table.Columns.Add(column);
         }
     }
 }

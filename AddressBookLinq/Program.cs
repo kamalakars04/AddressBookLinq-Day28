@@ -36,6 +36,11 @@ namespace AddressBookLinq
             // UC 8 Gets all by city.
             Console.WriteLine("\nAll Contacts alphabetically by the city");
             addressBookTable.GetAllByCity("Kottayam");
+
+            // UC 9 Add addressbook name and type
+            Console.WriteLine("\nAdd Address Book name and type");
+            addressBookTable.AddAddressBookNameType();
+            addressBookTable.GetAllContacts();
         }
     }
 }
